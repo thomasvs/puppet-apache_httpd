@@ -70,7 +70,9 @@ class apache_httpd (
   $service_restart        = $::apache_httpd::params::service_restart,
 ) inherits ::apache_httpd::params {
 
-  include '::apache_httpd::install'
+  class { '::apache_httpd::install':
+    ssl => $ssl,
+  }
   class { '::apache_httpd::service':
     service_restart => $service_restart
   }
@@ -150,10 +152,7 @@ class apache_httpd (
   }
 
   if $ssl {
-    package { 'mod_ssl':
-      ensure => installed,
-      notify => Service['httpd'],
-    }
+    
     # We disable everything in the file except loading the module + defaults
     # To listen on 443, the directive is required in an apache_httpd::file
     apache_httpd::file { 'ssl.conf':
