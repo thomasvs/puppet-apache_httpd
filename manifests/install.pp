@@ -8,9 +8,6 @@ class apache_httpd::install (
   package { 'httpd': ensure => $ensure }
 
   if $ssl {
-    package { 'mod_ssl':
-      ensure => $ensure,
-      notify => Service['httpd'],
-    }
+    include apache_httpd::ssl::install
   }
 }
