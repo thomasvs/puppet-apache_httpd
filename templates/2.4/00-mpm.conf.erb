@@ -29,3 +29,32 @@ LoadModule mpm_event_module modules/mod_mpm_event.so
 #LoadModule mpm_event_module modules/mod_mpm_event.so
 <% end -%>
 
+
+<IfModule mpm_prefork_module>
+    StartServers             <%= @startservers %>
+    MinSpareServers          <%= @minspareservers %>
+    MaxSpareServers          <%= @maxspareservers %>
+    ServerLimit              <%= @serverlimit %>
+    MaxRequestWorkers        <%= @maxclients %>
+    MaxConnectionsPerChild   <%= @maxrequestsperchild %>
+</IfModule>
+
+<IfModule mpm_worker_module>
+    StartServers             <%= @startservers %>
+    ServerLimit              <%= @serverlimit %>
+    MaxRequestWorkers        <%= @maxclients %>
+    MinSpareThreads          <%= @minsparethreads %>
+    MaxSpareThreads          <%= @maxsparethreads %>
+    ThreadsPerChild          <%= @threadsperchild %>
+    MaxConnectionsPerChild   <%= @maxrequestsperchild %>
+</IfModule>
+
+<IfModule mpm_event_module>
+    StartServers             <%= @startservers %>
+    ServerLimit              <%= @serverlimit %>
+    MaxRequestWorkers        <%= @maxclients %>
+    MinSpareThreads          <%= @minsparethreads %>
+    MaxSpareThreads          <%= @maxsparethreads %>
+    ThreadsPerChild          <%= @threadsperchild %>
+    MaxConnectionsPerChild   <%= @maxrequestsperchild %>
+</IfModule>
